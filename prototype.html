@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+	<head>
+	</head>
+	<body>
+		<script>
+			var words = {};
+			words.adjective = [
+				"afeard",
+				"arrant",
+				"base",
+				"brave",
+				"content",
+				"envious",
+				"false",
+				"gentle",
+				"heavy",
+				"ill",
+				"lief",
+				"like",
+				"meet",
+				"mere",
+				"present",
+				"sad",
+				"several",
+				"undone",
+				"dead",
+				"down",
+				"ere",
+				"e'en",
+				"fair",
+				"forth",
+				"gentle",
+				"grace",
+				"indeed",
+				"mine",
+				"nay",
+				"too",
+				"very"
+			];
+
+			words.adverb = [
+				"anon",
+				"apace",
+				"aye",
+				"belike",
+				"fain",
+				"forsooth",
+				"haply",
+				"ill",
+				"marvellous",
+				"merely",
+				"oft",
+				"peradventure", 
+				"perchance",
+				"perforce",
+				"presently",
+				"something",
+				"still",
+				"straight",
+				"therefore",
+				"thus",
+				"till",
+				"tis",
+				"unto",
+				"upon",
+				"why",
+				"wilt",
+				"would",
+				"yet",
+				"and",
+				"not",
+				"nor"
+			];
+
+			words.article = [
+				"the",
+				"a",
+				"that",
+				"it"
+			];
+
+			words.interjection = [
+				"avaunt",
+				"farewell",
+				"o"
+			];
+
+			words.noun = [
+				"apparel",
+				"aught",
+				"bawd",
+				"brow",
+				"colours",
+				"Corse",
+				"course",
+				"field",
+				"gage",
+				"glass",
+				"habit",
+				"humour",
+				"intent",
+				"issue",
+				"knave",
+				"livery",
+				"morn",
+				"morrow",
+				"office",
+				"parley",
+				"pate",
+				"physic",
+				"place",
+				"post",
+				"power",
+				"purpose",
+				"remembrance",
+				"sport",
+				"suit",
+				"visage",
+				"voice",
+				"wench",
+				"wit",
+				"blood",
+				"both",
+				"Caesar",
+				"daughter",
+				"day",
+				"death",
+				"duke",
+				"faith",
+				"father",
+				"fellow",
+				"fool",
+				"fortune",
+				"France",
+				"gods",
+				"hand",
+				"head",
+				"honour",
+				"king",
+				"lady",
+				"lord",
+				"master",
+				"matter",
+				"mistress",
+				"nature",
+				"noble",
+				"peace",
+				"prince",
+				"queen",
+				"sir",
+				"sword",
+				"thee",
+				"thought",
+				"words",
+				"world"
+			];
+
+			words.pronoun = [
+				"he",
+				"her",
+				"him",
+				"his",
+				"thine",
+				"thou",
+				"thy",
+				"whom",
+				"whose",
+				"I",
+				"you",
+				"my",
+				"me"
+			];
+
+			words.preposition = [
+				"for",
+				"hence",
+				"into",
+				"o'",
+				"to",
+				"of",
+				"in",
+				"with"
+			];
+
+			words.verb = [
+				"attend",
+				"become",
+				"befall",
+				"beshrew",
+				"bethink",
+				"chide",
+				"commend",
+				"counterfeit",
+				"crave",
+				"discover",
+				"fare",
+				"forbear",
+				"forswear",
+				"fright",
+				"hie",
+				"mark",
+				"methink",
+				"ope",
+				"owe",
+				"prate",
+				"quoth",
+				"rail",
+				"scape",
+				"sup",
+				"want",
+				"warrant",
+				"wont",
+				"wot",
+				"art",
+				"back",
+				"be",
+				"best",
+				"bid",
+				"did",
+				"die",
+				"dost",
+				"doth",
+				"hast",
+				"hath",
+				"hold",
+				"leave",
+				"let",
+				"lie",
+				"live",
+				"may",
+				"might",
+				"pray",
+				"rather",
+				"speak",
+				"stand",
+				"is"
+			];
+
+			var sentence1 = [
+				"noun",
+				"adverb",
+				"verb",
+				"adjective",
+				"preposition",
+				"noun"
+			];
+
+			var sentence2 = [
+				"pronoun",
+				"noun",
+				"adverb",
+				"pronoun",
+				"adjective",
+				"verb",
+				"article",
+				"noun",
+				"verb",
+				"noun"
+			];
+
+			var sentence3 = [
+				"adverb",
+				"article",
+				"verb",
+				"adjective",
+				",",
+				"pronoun",
+				"verb",
+				"adverb",
+				"verb"
+			];
+
+			var sentence4 = [
+				"interjection",
+				"!",
+				"article",
+				"preposition",
+				"adjective",
+				"adjective",
+				"adjective",
+				"noun",
+				"adverb",
+				"verb"
+			];
+
+			var sentence5 = [
+				"article",
+				"verb",
+				"article",
+				"noun",
+				"verb",
+				"preposition",
+				"article",
+				",",
+				"noun",
+				"adjective",
+				"preposition",
+				"noun",
+				"adverb",
+				"noun",
+				",",
+				"adverb",
+				"adjective"
+			];
+
+			var sentenceGenerator = function(template) {
+				var sentence = '';
+				var word = '';
+				var random;
+
+				for (var i = 0; i < template.length; i++) {
+					if ( template[i] === ',' || template[i] === '!' ) {
+						word = template[i];
+					} else {
+						random = getRand(words[template[i]].length);
+						word = words[template[i]][random];
+						word = ' ' + word;
+					}
+					sentence += word;
+				}
+
+				sentence += '.';
+
+				// capitalize first word of sentence
+				var first = sentence[1];
+				sentence = sentence.substr(2);
+				first = first.toUpperCase();
+				
+				sentence = first + sentence;
+				return sentence;
+			};
+
+			var getRand = function(range) {
+				return Math.floor( Math.random() * range );
+			}
+
+			console.log(sentenceGenerator(sentence1));
+			console.log(sentenceGenerator(sentence2));
+			console.log(sentenceGenerator(sentence3));
+			console.log(sentenceGenerator(sentence4));
+			console.log(sentenceGenerator(sentence5));
+		</script>
+	</body>
+</html>
