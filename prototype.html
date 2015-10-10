@@ -1,9 +1,21 @@
 <!DOCTYPE html>
 	<head>
+		<title>Literary filler text generator</title>
 	</head>
 	<body>
+		<h1>Generate Shakespearean filler text</h1>
+		<form>
+			<label for="paragraphs">Number of paragraphs</label>
+			<input type="text" required="true" name="paragraphs">
+			<br>
+			<button name="submit" type="submit">Submit</button>
+		</form>
+		<div class="text-response"></div>
 		<script>
+		(function() {
 			var words = {};
+			var sentenceTemplates = [];
+
 			words.adjective = [
 				"afeard",
 				"arrant",
@@ -130,6 +142,7 @@
 				"father",
 				"fellow",
 				"fool",
+				"infinite monkeys",
 				"fortune",
 				"France",
 				"gods",
@@ -236,7 +249,7 @@
 				"is"
 			];
 
-			var sentence1 = [
+			sentenceTemplates[0] = [
 				"noun",
 				"adverb",
 				"verb",
@@ -245,7 +258,7 @@
 				"noun"
 			];
 
-			var sentence2 = [
+			sentenceTemplates[1] = [
 				"pronoun",
 				"noun",
 				"adverb",
@@ -258,7 +271,7 @@
 				"noun"
 			];
 
-			var sentence3 = [
+			sentenceTemplates[2] = [
 				"adverb",
 				"article",
 				"verb",
@@ -270,7 +283,7 @@
 				"verb"
 			];
 
-			var sentence4 = [
+			sentenceTemplates[3] = [
 				"interjection",
 				"!",
 				"article",
@@ -283,7 +296,7 @@
 				"verb"
 			];
 
-			var sentence5 = [
+			sentenceTemplates[4] = [
 				"article",
 				"verb",
 				"article",
@@ -303,10 +316,11 @@
 				"adjective"
 			];
 
+			// create one sentence using the provided template
 			var sentenceGenerator = function(template) {
 				var sentence = '';
 				var word = '';
-				var random;
+				var random, first;
 
 				for (var i = 0; i < template.length; i++) {
 					if ( template[i] === ',' || template[i] === '!' ) {
@@ -322,7 +336,7 @@
 				sentence += '.';
 
 				// capitalize first word of sentence
-				var first = sentence[1];
+				first = sentence[1];
 				sentence = sentence.substr(2);
 				first = first.toUpperCase();
 				
@@ -330,15 +344,42 @@
 				return sentence;
 			};
 
+			// generate a random number between zero and range
 			var getRand = function(range) {
 				return Math.floor( Math.random() * range );
-			}
+			};
 
-			console.log(sentenceGenerator(sentence1));
-			console.log(sentenceGenerator(sentence2));
-			console.log(sentenceGenerator(sentence3));
-			console.log(sentenceGenerator(sentence4));
-			console.log(sentenceGenerator(sentence5));
+			// create one paragraph with the specified number of sentences in it
+			var paragraphGenerator = function(num) {		
+				var paragraph = '';
+				var random;
+				var sentenceTypes = sentenceTemplates.length;
+
+				for (var i = 0; i < num; i++) {
+					random = getRand(sentenceTypes);
+					paragraph += sentenceGenerator(sentenceTemplates[random]) + ' ';
+				}
+				
+				return paragraph;
+			};
+
+			document.querySelector('button').addEventListener('click', function(e) {
+				e.preventDefault();
+
+				var grafs = '';
+				var numGrafs = document.querySelector('input').value;
+
+				if (!numGrafs) {
+					grafs = "Please specify the number of paragraphs";
+				} else {
+					for (var i = 0; i < numGrafs; i++) {
+						grafs += '<p>' + paragraphGenerator(8) + '</p>';
+					}
+				}
+				document.querySelector('.text-response').innerHTML = grafs;
+			});
+			
+		}());
 		</script>
 	</body>
 </html>
