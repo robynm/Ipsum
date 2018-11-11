@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+	<head>
+		<title>Literary filler text generator</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>
+		<h1>Generate Shakespearean filler text</h1>
+		<form id="ipsum-form">
+			<label for="paragraphs">Paragraphs:</label>
+			<input type="number" required="true" name="paragraphs" id="paragraphs">
+			<br>
+			<button type="submit">Generate!</button>
+			<button id="copy-text" type="button" class="hide">Copy</button>
+		</form>
+		<div id="text-response"></div>
+		<textarea id="selection-response" class="visually-hidden" readonly></textarea>
+		<script type="text/javascript" src="js/dist/main.bundle.js"></script>
+	</body>
+</html>

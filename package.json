@@ -1,0 +1,17 @@
+{
+    "name": "Ipsum",
+    "version": "2.0.0",
+    "description": "Generate Shakespearean-style filler text",
+    "main": "js/src/main.js",
+    "scripts": {
+        "start": "webpack --watch",
+        "build": "webpack -p"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.1.5",
+        "@babel/preset-env": "^7.1.5",
+        "babel-loader": "^8.0.4",
+        "webpack": "^4.25.1",
+        "webpack-cli": "^3.1.2"
+    }
+}
